@@ -1,0 +1,13 @@
+origin_id,destination_id,cost
+a,b,4
+a,f,5
+b,g,1
+b,c,2	
+c,g,3
+c,d,10
+g,d,2
+g,f,8
+g,e,4
+g,a,2
+e,f,1
+d,e,6
