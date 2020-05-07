@@ -118,7 +118,7 @@ def main():
 	network = Network()
 
 	for _id in pd.unique(np.append(data['origin_id'].values, data['destination_id'].values)):
-		network.add_node(id=_id)
+		network.add_node(id=str(_id))
 
 	for i in range(data.shape[0]):
 		network.add_route(origin_id=str(data.iloc[i,0]), destination_id=str(data.iloc[i,1]), cost=data.iloc[i,2])
