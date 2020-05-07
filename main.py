@@ -51,11 +51,9 @@ class Route:
  
 class DijkstrasShortestPath: 
 	def __init__(self, network):
-		perm_nodes = []
-		temp_nodes = network.nodes.copy()
-		temp_nodes[0].distance = 0
-		self.temp_nodes = temp_nodes
-		self.perm_nodes = perm_nodes
+		self.perm_nodes = []
+		self.temp_nodes = network.nodes.copy()
+		self.temp_nodes[0].distance = 0
 		self.run_time = 0
 		self.run_finished = False
 
