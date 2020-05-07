@@ -67,7 +67,8 @@ class DijkstrasShortestPath:
 					m.routes[i].destination.distance = m.routes[i].via.distance + m.routes[i].cost
 					m.routes[i].destination.pred = m.routes[i].via
 			self.perm_nodes.append(m)
-			self.temp_nodes.pop(self.temp_nodes.index(m))
+			self.perm_nodes.remove(m)
+			# self.temp_nodes.pop(self.temp_nodes.index(m))
 		self.run_time = time.time() - start_time
 		self.run_finished = True
 
