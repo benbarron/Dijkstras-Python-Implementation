@@ -113,7 +113,7 @@ class DijkstrasShortestPath:
 		print(' -> '.join(self.get_path_to(node=node, node_id=node_id).split('-')))
 
 def main():
-	FILE_PATH = './src/data.csv'
+	FILE_PATH = './data.csv'
 	data = pd.read_csv(FILE_PATH)
 	network = Network()
 
