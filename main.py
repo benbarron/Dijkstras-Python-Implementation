@@ -121,7 +121,7 @@ def main():
 		network.add_node(id=_id)
 
 	for i in range(data.shape[0]):
-		network.add_route(origin_id=data.iloc[i,0], destination_id=data.iloc[i,1], cost=data.iloc[i,2])
+		network.add_route(origin_id=str(data.iloc[i,0]), destination_id=str(data.iloc[i,1]), cost=data.iloc[i,2])
 
 	dijkstra = DijkstrasShortestPath(network)
 	dijkstra.run()                          
