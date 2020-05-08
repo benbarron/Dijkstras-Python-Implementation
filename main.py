@@ -1,3 +1,4 @@
+## requires >= python3.8.0 
 import time
 import sys
 import pandas as pd
@@ -62,18 +63,19 @@ class DijkstrasShortestPath:
 		self.run_time = 0
 		self.run_finished = False
 
-	def run(self):
+	def run(self, verbose=False):
 		start_time = time.time()
 		while len(self.temp_nodes) > 0:
 			d = [n.distance for n in self.temp_nodes]
-			m = self.temp_nodes[d.index(min(d))]  # get node with min distance
+			m = self.temp_nodes[d.index(min(d))]
 			for i in range(len(m.routes)):
 				if m.routes[i].destination.distance > m.routes[i].via.distance + m.routes[i].cost:
-					m.routes[i].destination.distance = m.routes[i].via.distance + \
-						m.routes[i].cost
+					m.routes[i].destination.distance = m.routes[i].via.distance + m.routes[i].cost
 					m.routes[i].destination.pred = m.routes[i].via
 			self.perm_nodes.append(m)
 			self.temp_nodes.remove(m)
+			if verbose:
+				print(f'Node with id \'{m.id}\' became permanent.')
 		self.run_time = time.time() - start_time
 		self.run_finished = True
 
@@ -81,7 +83,7 @@ class DijkstrasShortestPath:
 		if not self.run_finished:
 			raise Exception('Run the algorithm before viewing the results.')
 
-		output = f'Dijkstra Finished in {self.run_time}\n\n'
+		output = f'\nDijkstra finished in {self.run_time} seconds\n\n'
 		output += 'N = Node\nD = Total Cost/Distance\nV = Via/Pred\n\n'
 		output += 'N\tD\tV\n'
 		output += '-\t-\t-\n'
@@ -97,8 +99,7 @@ class DijkstrasShortestPath:
 	
 	def prompt(self):
 		while 1:
-			a = input("Enter id of node to display shortest path to or 'quit' to exit: ")
-			if a.lower() == 'quit':
+			if (a := input("Enter id of node to display shortest path to or 'quit' to exit: ").lower()) == 'quit':
 				break
 			try:
 				self.print_path_to(node_id=a)
@@ -142,7 +143,7 @@ def main():
 		network.add_route(origin_id=str(data.iloc[i, 0]), destination_id=str(data.iloc[i, 1]), cost=data.iloc[i, 2])
 
 	dijkstra = DijkstrasShortestPath(network)
-	dijkstra.run()
+	dijkstra.run(verbose=True)
 	dijkstra.print_summary()
 	dijkstra.prompt()
 
