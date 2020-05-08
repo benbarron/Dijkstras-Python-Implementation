@@ -128,12 +128,20 @@ class DijkstrasShortestPath:
 	def print_path_to(self, node=None, node_id=None):
 		print(' -> '.join(self.get_path_to(node=node, node_id=node_id).split('-')))
 
+def check_file_input(file_path):
+	path_arr = list(file_path)
+	for i in range(len(path_arr)):
+		if path_arr[i] == "'":
+			path_arr[i] = ""
+	return ''.join(path_arr).strip()
 
 def main():
 	if len(sys.argv) < 2:
-		raise Exception('Please provide a filename as an argument')
+		FILE_PATH = input('Please enter a file path for your data: ')
+	else: 
+		FILE_PATH = sys.argv[1]
 
-	data = pd.read_csv(sys.argv[1])
+	data = pd.read_csv(check_file_input(FILE_PATH))
 	network = Network()
 
 	for _id in pd.unique(np.append(data['origin_id'].values, data['destination_id'].values)):
