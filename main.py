@@ -103,21 +103,19 @@ class DijkstrasShortestPath:
 				break
 			try:
 				self.print_path_to(node_id=a)
+				self.print_distance_to(node_id=a)
 			except Exception as e:
 				print(e)
 
 
-	def get_path_to(self, node=None, node_id=None):
+	def get_path_to(self, node_id=None):
 		if not self.run_finished:
 			raise Exception('Run the algorithm before viewing the results.')
-		if node is None and node_id is None:
-			raise Exception('Either a node or node id is required')
+		if node_id is None:
+			raise Exception('A node_id id is required')
 
-		if node is None:
-			ids = [node.id for node in self.perm_nodes]
-			temp = self.perm_nodes[ids.index(node_id)]
-		else:
-			temp = node
+		ids = [node.id for node in self.perm_nodes]
+		temp = self.perm_nodes[ids.index(node_id)]
 
 		path = ''
 		while temp is not None:
@@ -125,8 +123,22 @@ class DijkstrasShortestPath:
 			temp = temp.pred
 		return '-'.join(list(path))
 
-	def print_path_to(self, node=None, node_id=None):
-		print(' -> '.join(self.get_path_to(node=node, node_id=node_id).split('-')))
+	def print_path_to(self, node_id=None):
+		print('Path: ' + ' -> '.join(self.get_path_to(node_id=node_id).split('-')))
+
+	def print_distance_to(self, node_id=None):
+		if not self.run_finished:
+			raise Exception('Run the algorithm before viewing the results.')
+		if node_id is None:
+			raise Exception('A node_id is required')	
+
+		ids = [node.id for node in self.perm_nodes]
+		node = self.perm_nodes[ids.index(node_id)]
+
+		if node is None:
+			raise Exception(f'Node with id {node_id} not found')
+
+		print(f'Distance: {node.distance}')
 
 def check_file_input(file_path):
 	path_arr = list(file_path)
