@@ -27,7 +27,7 @@ class Network:
 			if self.nodes[i].id == destination_id:
 				destination_node = self.nodes[i]
 		if origin_node is None or destination_node is None:
-			raise Exception('Could not find both origin and destination nodes')
+			raise Exception('Could not find origin or destination node')
 		origin_node.add_route(destination_node, cost)
 
 
